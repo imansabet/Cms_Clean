@@ -1,13 +1,24 @@
+using Cms.Core.Interfaces.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cms.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CategoryController : ControllerBase
+    public class PostController : ControllerBase
     {
-        public CategoryController( )
+        private readonly IPostRepositorty _postRepository;
+
+        public PostController(IPostRepositorty postRepository )
         {
+            _postRepository = postRepository;
+        }
+
+        [HttpGet("GetLatestPost")]
+        public IActionResult GetLatestPost() 
+        {
+            return Ok(_postRepository.GetLatestPosts(10));
+           
         }
         
     }

@@ -28,9 +28,9 @@ namespace Cms.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
         }
     }
-    public class BloggingContextFactory : IDesignTimeDbContextFactory<CmsDbContext> 
+    public class BloggingContextFactory : IDesignTimeDbContextFactory<CmsDbContext>
     {
-        public CmsDbContext CreateDbContext(string[] args) 
+        public CmsDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<CmsDbContext>();
             optionsBuilder.UseSqlServer(@"Server =.;Database=CMS_Clean;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True");
