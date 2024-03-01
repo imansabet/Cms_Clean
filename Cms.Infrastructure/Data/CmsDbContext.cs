@@ -33,7 +33,7 @@ namespace Cms.Infrastructure.Data
         public CmsDbContext CreateDbContext(string[] args) 
         {
             var optionsBuilder = new DbContextOptionsBuilder<CmsDbContext>();
-            optionsBuilder.UseSqlServer(@"");
+            optionsBuilder.UseSqlServer(@"Server =.;Database=CMS_Clean;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True");
             return new CmsDbContext(optionsBuilder.Options);
         }
     }
