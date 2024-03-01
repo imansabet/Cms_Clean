@@ -15,9 +15,9 @@ namespace Cms.Api.Controllers
         }
 
         [HttpGet("GetLatestPost")]
-        public IActionResult GetLatestPost() 
+        public async Task<IActionResult> GetLatestPost() 
         {
-            return Ok(_postRepository.GetLatestPosts(10));
+            return Ok(await _postRepository.GetLatestPosts(10));
            
         }
         

@@ -6,7 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CategoryEntity = Cms.Infrastructure.Data.Entities.Category;  //Inside Methods
-using CategoryDomain = Cms.Core.Domain.Category;  //
+using CategoryDomain = Cms.Core.Domain.Category;
+using Microsoft.EntityFrameworkCore;  //
 
 namespace Cms.Infrastructure.Data.Repositories
 {
@@ -18,50 +19,50 @@ namespace Cms.Infrastructure.Data.Repositories
         {
             _cmsDbContext = cmsDbContext;
         }
-        public int Add(CategoryDomain category)
+        public async Task<int> AddAsync(CategoryDomain category)
         {
             var dbModel = new CategoryEntity
             { 
                 CreatedDate = DateTime.Now,
                 Title = category.Title,
             };
-            _cmsDbContext.Categories.Add(dbModel); 
-            _cmsDbContext.SaveChanges();
+            await _cmsDbContext.Categories.AddAsync(dbModel); 
+            await _cmsDbContext.SaveChangesAsync();
             return dbModel.Id;
 
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var finded = GetCategory(id);
+            var finded = GetCategoryAsync(id);
             _cmsDbContext.Remove(finded);
-            _cmsDbContext.SaveChanges();
+            await _cmsDbContext.SaveChangesAsync();
         }
 
-        public void Edit(CategoryDomain category)
+        public async Task EditAsync(CategoryDomain category)
         {
-            var finded = GetCategory(category.Id);
+            var finded = GetCategoryAsync(category.Id);
             finded.Title = category.Title;
             _cmsDbContext.Categories.Update(finded);
-            _cmsDbContext.SaveChanges();
+            await _cmsDbContext.SaveChangesAsync();
         }
 
-        public List<CategoryDomain> GetAll()
+        public async Task<List<CategoryDomain>> GetAllAsync()
         {
-            return _cmsDbContext.Categories.Select(x => new CategoryDomain { 
+            return await _cmsDbContext.Categories.Select(x => new CategoryDomain { 
                 Title = x.Title,
                 CreatedDate = x.CreatedDate,
                 Id = x.Id
-            }).ToList();
+            }).ToListAsync();
         }
 
-        public Category GetById(int id)
+        public async Task<Category> GetByIdAsync(int id)
         {
-            var item = _cmsDbContext.Categories.Select( x => new CategoryDomain 
+            var item = await _cmsDbContext.Categories.Select( x => new CategoryDomain 
             { 
                 Id = x.Id,
                 CreatedDate = x.CreatedDate
-            }).FirstOrDefault(x => x.Id == id );
+            }).FirstOrDefaultAsync(x => x.Id == id );
             if ( item == null)
             {
                 throw new Exception("Not Found");
@@ -69,7 +70,7 @@ namespace Cms.Infrastructure.Data.Repositories
             return item;
         }
 
-        private CategoryEntity GetCategory(int id)
+        private CategoryEntity GetCategoryAsync(int id)
         {
             var item = _cmsDbContext.Categories.FirstOrDefault(x => x.Id == id);
             if (item == null)

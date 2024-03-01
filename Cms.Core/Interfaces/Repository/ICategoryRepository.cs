@@ -9,10 +9,10 @@ namespace Cms.Core.Interfaces.Repository
 {
     public interface ICategoryRepository
     {
-        Category GetById(int id);
-        List<Category> GetAll();
-        int Add(Category category);
-        void Edit(Category category);
-        void Delete(int id);
+        Task<Category> GetByIdAsync(int id);
+        Task<List<Category>> GetAllAsync();
+        Task<int> AddAsync(Category category);
+        Task EditAsync(Category category);
+        Task DeleteAsync(int id);
     }
 }

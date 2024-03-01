@@ -9,6 +9,6 @@ namespace Cms.Core.Interfaces.Repository
 {
     public interface IPostRepositorty
     {
-        List<Post> GetLatestPosts (int count);
+        Task<List<Post>> GetLatestPostsAsync (int count);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Cms.Core.Domain;
 using Cms.Core.Interfaces.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,16 @@ namespace Cms.Infrastructure.Data.Repositories
         {
             _cmsDbContext = cmsDbContext;
         }
-        public List<Post> GetLatestPosts(int count)
+        public async Task<List<Post>> GetLatestPostsAsync(int count)
         {
-            return _cmsDbContext.Posts.Select(x=>new Post
+            return  await _cmsDbContext.Posts.Select(x=>new Post
             {
                 Id = x.Id,
                 Title = x.Title,
                 Content = x.Content,
                 CreatedDate = x.CreatedDate,
             }).OrderByDescending(x=>x.CreatedDate)
-              .Take(count).ToList();
+              .Take(count).ToListAsync();
         }
     }
 }
