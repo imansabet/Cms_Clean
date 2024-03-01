@@ -7,7 +7,7 @@ namespace Cms.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CategoryController : ControllerBase
+    public class CategoryController : BaseController
     {
         private readonly ICategoryRepository _categoryRepository;
 
@@ -21,11 +21,11 @@ namespace Cms.Api.Controllers
             try 
             { 
                 var category = await _categoryRepository.GetByIdAsync(id);
-                return Ok(category);
+                return CustomeOk(category);
             }
             catch (Exception ex) 
             {
-                return BadRequest(ex.Message);
+                return CustomeError(ex.Message);
             } 
         }
         [HttpGet]
@@ -34,11 +34,11 @@ namespace Cms.Api.Controllers
             try
             {
                 var category = await _categoryRepository.GetAllAsync();
-                return Ok(category);
+                return CustomeOk(category);
             }
             catch (Exception ex) 
             {
-                return BadRequest(ex.Message);
+                return CustomeError(ex.Message);
             }
 
         }
@@ -51,11 +51,11 @@ namespace Cms.Api.Controllers
                 { 
                     Title = categoryAddvm.Title,
                 });
-                return Ok(id);
+                return CustomeOk(id);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return CustomeError(ex.Message);
             }
         }
         [HttpPut("{int:id}")]
@@ -63,7 +63,7 @@ namespace Cms.Api.Controllers
         {
             if (id != categoryEditVm.Id) 
             {
-                return BadRequest();
+                return CustomeError();
             }
             try 
             {
@@ -72,11 +72,11 @@ namespace Cms.Api.Controllers
                     Id = id,
                     Title = categoryEditVm.Title
                 });
-                return Ok();
+                return CustomeOk(true);
             } 
             catch (Exception ex) 
             {
-                return BadRequest(ex.Message);
+                return CustomeError(ex.Message);
             }
         }
         [HttpDelete("{int:id}")]
@@ -85,11 +85,11 @@ namespace Cms.Api.Controllers
             try 
             {
                 await _categoryRepository.DeleteAsync(id);
-                return Ok();
+                return CustomeOk(true);
             }
             catch (Exception ex) 
             {
-                return BadRequest(ex.Message);
+                return CustomeError(ex.Message);
             }
         }
 
