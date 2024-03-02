@@ -1,4 +1,5 @@
-﻿using Cms.Core.Domain;
+﻿using Cms.Core.Commands;
+using Cms.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Cms.Core.Interfaces.Repository
 {
     public interface IPostRepositorty
     {
+        Task<int> Add(PostAddCommand request);
         Task<List<Post>> GetLatestPostsAsync (int count);
     }
 }
