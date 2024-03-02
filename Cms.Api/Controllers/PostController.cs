@@ -1,24 +1,27 @@
 using Cms.Core.Interfaces.Repository;
+using Cms.Core.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cms.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PostController : ControllerBase
+    public class PostController : BaseController
     {
-        private readonly IPostRepositorty _postRepository;
+        private readonly IMediator _mediatR;
 
-        public PostController(IPostRepositorty postRepository )
+        public PostController(IMediator mediatR )
         {
-            _postRepository = postRepository;
+            _mediatR = mediatR;
         }
 
         [HttpGet("GetLatestPost")]
         public async Task<IActionResult> GetLatestPost() 
         {
-            return Ok(await _postRepository.GetLatestPostsAsync(10));
-           
+            var query = new GetLatestPostsQuery();
+            var result = await _mediatR.Send(query);
+            return CustomOk(result);
         }
         
     }

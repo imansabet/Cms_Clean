@@ -21,11 +21,11 @@ namespace Cms.Api.Controllers
             try 
             { 
                 var category = await _categoryRepository.GetByIdAsync(id);
-                return CustomeOk(category);
+                return CustomOk(category);
             }
             catch (Exception ex) 
             {
-                return CustomeError(ex.Message);
+                return CustomError(ex.Message);
             } 
         }
         [HttpGet]
@@ -34,11 +34,11 @@ namespace Cms.Api.Controllers
             try
             {
                 var category = await _categoryRepository.GetAllAsync();
-                return CustomeOk(category);
+                return CustomOk(category);
             }
             catch (Exception ex) 
             {
-                return CustomeError(ex.Message);
+                return CustomError(ex.Message);
             }
 
         }
@@ -51,11 +51,11 @@ namespace Cms.Api.Controllers
                 { 
                     Title = categoryAddvm.Title,
                 });
-                return CustomeOk(id);
+                return CustomOk(id);
             }
             catch (Exception ex)
             {
-                return CustomeError(ex.Message);
+                return CustomError(ex.Message);
             }
         }
         [HttpPut("{int:id}")]
@@ -63,7 +63,7 @@ namespace Cms.Api.Controllers
         {
             if (id != categoryEditVm.Id) 
             {
-                return CustomeError();
+                return CustomError();
             }
             try 
             {
@@ -72,11 +72,11 @@ namespace Cms.Api.Controllers
                     Id = id,
                     Title = categoryEditVm.Title
                 });
-                return CustomeOk(true);
+                return CustomOk(true);
             } 
             catch (Exception ex) 
             {
-                return CustomeError(ex.Message);
+                return CustomError(ex.Message);
             }
         }
         [HttpDelete("{int:id}")]
@@ -85,11 +85,11 @@ namespace Cms.Api.Controllers
             try 
             {
                 await _categoryRepository.DeleteAsync(id);
-                return CustomeOk(true);
+                return CustomOk(true);
             }
             catch (Exception ex) 
             {
-                return CustomeError(ex.Message);
+                return CustomError(ex.Message);
             }
         }
 

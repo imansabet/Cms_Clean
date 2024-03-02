@@ -5,7 +5,7 @@ namespace Cms.Api.Controllers
 {
     public class BaseController : ControllerBase
     {
-        public ActionResult CustomeOk(object data,string message = "")
+        public ActionResult CustomOk(object data,string message = "")
         {
             return Ok(new Result()
             {
@@ -14,7 +14,7 @@ namespace Cms.Api.Controllers
                 Status = Status.Success
             });
         }
-        public ActionResult CustomeError(object data = null, string message = "")
+        public ActionResult CustomError(object data = null, string message = "")
         {
             return BadRequest(new Result()
             {
