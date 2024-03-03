@@ -8,7 +8,7 @@ namespace Cms.Core.UseCase.Interfaces
 {
     public interface IUseCaseRequestHandler<in TUseCaseRequest, out TUseCaseResponse> where TUseCaseRequest : IUseCaseRequest<TUseCaseResponse>
     {
-        Task HandleASync(TUseCaseRequest message, IOutputPort<TUseCaseResponse> outputPort);
+        Task HandleASync(TUseCaseRequest message, IOutPutPort<TUseCaseResponse> outputPort);
     }
     public interface IUseCaseRequest<out TUseCaseResponse> { }
     public interface IOutPutPort<in TUseCaseResponse> 
