@@ -38,6 +38,18 @@ namespace Cms.Api.Controllers
             var result = await _mediatR.Send(command);
             return CustomOk(result);
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Edit(PostEditVm model) 
+        {
+            var post = new PostEditRequest 
+            {   
+                Content = model.Content,
+                Title = model.Title, 
+            };
+            var result = await _mediatR.Send(post);
+            return CustomOk(true);
+        }  
+
 
     }
 }

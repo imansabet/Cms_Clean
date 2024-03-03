@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cms.Core.UseCases;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,5 +15,14 @@ namespace Cms.Core.ViewModels
         [Required(ErrorMessage = "متن محتوا الزامی است ")]
         public string Content { get; set; }
     }
+    public class PostEditVm 
+    {
+        [Required(ErrorMessage = "نام الزامی است ")]
+        public string Title { get; set; }
+        [Required(ErrorMessage = "متن محتوا الزامی است ")]
+
+        public string Content { get; set; }
+    }
     
+
 }
