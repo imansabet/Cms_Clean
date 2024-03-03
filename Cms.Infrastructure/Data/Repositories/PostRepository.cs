@@ -34,6 +34,13 @@ namespace Cms.Infrastructure.Data.Repositories
             return item.Id;
          }
 
+        public async Task<int> Edit(PostDomain post)
+        {
+            _cmsDbContext.Update(post);
+            await _cmsDbContext.SaveChangesAsync();
+            return post.Id;
+        }
+
         public async Task<List<Post>> GetLatestPostsAsync(int count)
         {
             return  await _cmsDbContext.Posts.Select(x=>new Post
@@ -45,6 +52,8 @@ namespace Cms.Infrastructure.Data.Repositories
             }).OrderByDescending(x=>x.CreatedDate)
               .Take(count).ToListAsync();
         }
+
+        
     }
 }
  

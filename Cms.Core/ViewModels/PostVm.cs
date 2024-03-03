@@ -16,6 +16,7 @@ namespace Cms.Core.ViewModels
     }
     public class PostEditVm 
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "نام الزامی است ")]
         public string Title { get; set; }
         [Required(ErrorMessage = "متن محتوا الزامی است ")]

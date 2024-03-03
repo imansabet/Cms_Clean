@@ -1,7 +1,12 @@
 using Cms.Core.Interfaces.Repository;
+using Cms.Core.Queries;
+using Cms.Core.UseCase.Interfaces;
+using Cms.Core.UseCase;
 using Cms.Infrastructure.Data;
 using Cms.Infrastructure.Data.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +21,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddMediatR(typeof(GetLatestPostsQuery).GetTypeInfo().Assembly);
 builder.Services.AddScoped<IPostRepositorty, PostRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IEditPostUseCase, EditPostUseCase>();
 
 
 var app = builder.Build();

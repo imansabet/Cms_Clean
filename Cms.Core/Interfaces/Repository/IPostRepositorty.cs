@@ -11,6 +11,7 @@ namespace Cms.Core.Interfaces.Repository
     public interface IPostRepositorty
     {
         Task<int> Add(PostAddCommand request);
+        Task<int> Edit(Post post);
         Task<List<Post>> GetLatestPostsAsync (int count);
     }
 }

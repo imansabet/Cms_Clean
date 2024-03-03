@@ -1,6 +1,8 @@
+using Cms.Api.Presenter;
 using Cms.Core.Commands;
 using Cms.Core.Interfaces.Repository;
 using Cms.Core.Queries;
+using Cms.Core.UseCase.Interfaces;
 using Cms.Core.ViewModels;
 using Cms.Infrastructure.Data.Repositories;
 using MediatR;
@@ -15,10 +17,14 @@ namespace Cms.Api.Controllers
     public class PostController : BaseController
     {
         private readonly IMediator _mediatR;
+        private readonly IEditPostUseCase _editPostUseCase;
+        private readonly Presenter.PostApiPresenter<EditPostResponse> _postApiPresenter;
 
-        public PostController(IMediator mediatR )
+        public PostController(IMediator mediatR,IEditPostUseCase editPostUseCase ,PostApiPresenter<EditPostResponse> postApiPresenter)
         {
             _mediatR = mediatR;
+            _editPostUseCase = editPostUseCase;
+            _postApiPresenter = postApiPresenter;
         }
 
         [HttpGet("GetLatestPost")]
@@ -44,11 +50,12 @@ namespace Cms.Api.Controllers
         {
             var post = new EditPostRequest
             {   
+                Id = model.Id,
                 Content = model.Content,
                 Title = model.Title, 
             };
-            var result = await _mediatR.Send(post);
-            return CustomOk(true);
+            await _editPostUseCase.HandleASync(post, _postApiPresenter);
+            return _postApiPresenter.ContentResult;
         }  
 
 
