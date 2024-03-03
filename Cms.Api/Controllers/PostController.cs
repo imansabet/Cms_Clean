@@ -5,6 +5,7 @@ using Cms.Core.ViewModels;
 using Cms.Infrastructure.Data.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using static Cms.Core.Dtos.UseCase.EditPost;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Cms.Api.Controllers
@@ -41,7 +42,7 @@ namespace Cms.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(PostEditVm model) 
         {
-            var post = new PostEditRequest 
+            var post = new EditPostRequest
             {   
                 Content = model.Content,
                 Title = model.Title, 

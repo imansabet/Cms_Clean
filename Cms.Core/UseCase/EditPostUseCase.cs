@@ -12,7 +12,9 @@ namespace Cms.Core.UseCase
 {
     public class EditPostUseCase : IEditPostUseCase
     {
-        public Task HandleASync(EditPost.EditPostRequest message, IOutputPort<GenericResponse<EditPostResponse>> outputPort)
+       
+
+        public Task HandleASync(EditPostRequest message, IOutPutPort<GenericResponse<EditPostResponse>> outputPort)
         {
             throw new NotImplementedException();
         }
